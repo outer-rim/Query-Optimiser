@@ -1,0 +1,2 @@
+[ TABLE :: { [ AND :: { A1 : B5 } ]  : [ TABLE :: { T :  } ]  } ] 
+SELECT [ A1 ] (SELECT [ B5 ] (T))
