@@ -1,2 +1,11 @@
-[ TABLE :: { [ AND :: { A1 : B5 } ]  : [ TABLE :: { T :  } ]  } ] 
 SELECT [ A1 ] (SELECT [ B5 ] (T))
+PROJECT [ B1 ] (T)
+SELECT [ A1 ] (SELECT [ B5 ] (PROJECT [ B1 ] (T)))
+PROJECT [ B1 ] (SELECT [ A1 ] (SELECT [ B5 ] (T)))
+SELECT [ A3 ] (T1) DIFF SELECT [ A3 ] (T2)
+PROJECT [ A5 ] (T1) UNION PROJECT [ A5 ] (T2)
+SELECT [ A3 ] (PROJECT [ A5 ] (T1) UNION PROJECT [ A5 ] (T2)) DIFF SELECT [ A3 ] (T2)
+ JOIN [ A4 ] 
+ JOIN [ A7 AND B3 ] 
+PROJECT [ A5 ] (SELECT [ A3 ] (T1) DIFF SELECT [ A3 ] (T2)) UNION PROJECT [ A5 ] (T2)
+SELECT [ A3 ] (SELECT [ AND ] (T)) DIFF SELECT [ A3 ] (T2)

@@ -10,7 +10,7 @@
     Node* node;
 }
 
-%token AND OR SELECT LSQ RSQ LPAR RPAR
+%token AND OR SELECT PROJECT JOIN UNION INTERSECT DIFF PROD LSQ RSQ LPAR RPAR
 %token <str> WORD
 
 %start result
@@ -25,15 +25,25 @@
 result :
         | result table
         {
-            printTable($2);
-            parse($2);
+            // printTable($2);
+            get($2);
         }
 ;
 
 table : term
-        { $$ = makeTree($1, NULL); }
+        { $$ = makeTree($1); }
+        | SELECT LSQ expression RSQ LPAR table PROD table RPAR
+        { $$ = joinTree($3, $6, $8); }
+        | SELECT LSQ expression RSQ LPAR table JOIN LSQ expression RSQ table RPAR
+        { $$ = joinTree(appendAndNode($3, $9), $6, $11); }
+        | SELECT LSQ expression RSQ LPAR table DIFF table RPAR
+        { $$ = diffTree($3, $6, $8); }
         | SELECT LSQ expression RSQ LPAR table RPAR
-        { $$ = makeTree($3, $6); }
+        { $$ = makeSelectTree($3, $6); }
+        | PROJECT LSQ expression RSQ LPAR table RPAR
+        { $$ = makeProjectTree($3, $6); }
+        | PROJECT LSQ expression RSQ LPAR table UNION table RPAR
+        { $$ = unionTree($3, $6, $8); }
 ;
 
 expression: term
@@ -44,6 +54,12 @@ expression: term
 
 term:   WORD
         { $$ = makeTermNode($1); }
+        | term OR WORD
+        {
+            string temp($3);
+            string s = ($1)->content + " OR " + temp;
+            $$ = makeTermNode(s);
+        }
 ;
 
 %%

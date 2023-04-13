@@ -6,14 +6,21 @@
 %%
 
 "SELECT"                      { return SELECT;                             }
+"PROJECT"                     { return PROJECT;                            }
+"JOIN"                        { return JOIN;                               }
+"UNION"                       { return UNION;                              }
+"DIFF"                        { return DIFF;                               }
+"INTERSECT"                   { return INTERSECT;                          }
+"PROD"                        { return PROD;                               }
+"AND"                         { return AND;                                }
+"OR"                          { return OR;                                 }
 [a-zA-Z0-9][a-zA-Z0-9\.]*     { yylval.str=strdup(yytext); return WORD;    }
-"&"                           { return AND;                                }
-"|"                           { return OR;                                 }
 "["                           { return LSQ;                                }
 "]"                           { return RSQ;                                }
 "("                           { return LPAR;                               }
 ")"                           { return RPAR;                               }
-[ \n\t]                       {                                            }
+[\n]                          { cout << endl;                              }
+[ \t]                         {                                            }
 
 %%
 

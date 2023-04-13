@@ -7,7 +7,12 @@ using namespace std;
 #define WORD_ 101
 #define AND_ 102
 #define OR_ 103
-#define TABLE_ 104
+#define STABLE_ 104
+#define PTABLE_ 105
+#define TABLE_ 106
+#define DTABLE_ 107
+#define UTABLE_ 108
+#define JTABLE_ 109
 
 class Node {
     public:
@@ -15,18 +20,29 @@ class Node {
         string content;
         Node* left;
         Node* right;
+        Node* attr; // Join only
         Node();
         Node(Node*);
 };
 
-Node *makeTermNode(char*);
+Node *makeTermNode(string);
 Node *makeAndNode(Node*, Node*);
-Node *makeOrNode(Node*, Node*);
-Node *makeTree(Node*, Node*);
+Node *appendAndNode(Node*, Node*);
+Node *makeTree(Node*);
+Node *makeSelectTree(Node*, Node*);
+Node *makeProjectTree(Node*, Node*);
+Node *joinTree(Node*, Node*, Node*);
+Node *diffTree(Node*, Node*, Node*);
+Node *unionTree(Node*, Node*, Node*);
 void printTable(Node*);
 void revert(Node*);
-void parse(Node*);
+Node *parse(Node*);
 Node *get_and(Node*, Node*);
+Node *get_table(Node*);
+void get(Node*);
+void get_str(string&, Node*);
+Node *gen_copy(Node*);
+Node *appendNode(Node*, Node*);
 
 extern FILE *yyin;
 extern int yyparse();
