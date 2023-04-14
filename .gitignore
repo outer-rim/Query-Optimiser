@@ -1,0 +1,6 @@
+tmp/
+*.o
+y.tab.*
+lex.yy.c
+test_res
+.venv/
