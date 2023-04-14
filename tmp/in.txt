@@ -1,0 +1,1 @@
+SELECT [ A1 ] (SELECT [ B5 ] (SELECT [ C5 ] (T))
