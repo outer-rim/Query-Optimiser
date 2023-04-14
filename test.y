@@ -32,6 +32,8 @@ result :
 
 table : term
         { $$ = makeTree($1); }
+        | LPAR table RPAR
+        { $$ = $2; }
         | SELECT LSQ expression RSQ LPAR table PROD table RPAR
         { $$ = joinTree($3, $6, $8); }
         | SELECT LSQ expression RSQ LPAR table JOIN LSQ expression RSQ table RPAR
@@ -65,5 +67,5 @@ term:   WORD
 
 void yyerror(char* s)
 {
-    printf("Error Detected : %s\n", s);
+    cerr << "Error Detected : " << s << endl;
 }
