@@ -1,7 +1,7 @@
 #include "test_translator.h"
 
-Node::Node() : nodeType(-1), left(NULL), right(NULL) {}
-Node::Node(Node* node) : nodeType(node->nodeType), content(node->content), left(node->left), right(node->right) {}
+Node::Node() : nodeType(-1), left(NULL), right(NULL), attr(NULL), pro(0) {}
+Node::Node(Node* node) : nodeType(node->nodeType), content(node->content), left(node->left), right(node->right), attr(node->attr), pro(node->pro) {}
 
 Node *makeTermNode(string s)
 {
@@ -138,10 +138,7 @@ void printTable(Node* node)
     case WORD_:
         cout << node->content;
         return;
-    case STABLE_:
-    case PTABLE_:
-    case TABLE_:
-    case AND_:
+    default:
         cout << "[ " << node->content << " :: { ";
         printTable(node->left);
         cout << " : ";
@@ -167,26 +164,18 @@ Node *get_and(Node* node, Node* res)
     if(node->nodeType != WORD_) return temp;
     temp->nodeType = STABLE_;
     temp->content = "TABLE";
+    temp->pro = 1;
     temp->left = new Node(node);
     temp->right = new Node();
     return temp->right;
 }
 
-void get(Node* node)
-{
-    if(node->nodeType == PTABLE_ || node->nodeType == DTABLE_ || node->nodeType == UTABLE_ || node->nodeType == JTABLE_) revert(node);
-    else if(node->nodeType == STABLE_) revert(parse(node));
-}
-
 void revert(Node* node)
 {
-    if(node->nodeType == TABLE_)
+    if(node->nodeType == TABLE_) revert(node->left);
+    else if(node->nodeType == STABLE_)
     {
-        revert(node->left);
-        return;
-    }
-    if(node->nodeType == STABLE_)
-    {
+        if(node->pro == 0) node = parse(node);
         cout << "SELECT [ ";
         revert(node->left);
         cout << " ] (";
@@ -198,8 +187,7 @@ void revert(Node* node)
         cout << "PROJECT [ ";
         revert(node->left);
         cout << " ] (";
-        if(node->right->nodeType == STABLE_) revert(parse(node->right));
-        else revert(node->right);
+        revert(node->right);
         cout << ")";
     }
     else if(node->nodeType == DTABLE_)

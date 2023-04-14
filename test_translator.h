@@ -21,6 +21,7 @@ class Node {
         Node* left;
         Node* right;
         Node* attr; // Join only
+        int pro;
         Node();
         Node(Node*);
 };
@@ -39,7 +40,6 @@ void revert(Node*);
 Node *parse(Node*);
 Node *get_and(Node*, Node*);
 Node *get_table(Node*);
-void get(Node*);
 void get_str(string&, Node*);
 Node *gen_copy(Node*);
 Node *appendNode(Node*, Node*);

@@ -26,7 +26,7 @@ result :
         | result table
         {
             // printTable($2);
-            get($2);
+            revert($2);
         }
 ;
 
@@ -56,8 +56,7 @@ term:   WORD
         { $$ = makeTermNode($1); }
         | term OR WORD
         {
-            string temp($3);
-            string s = ($1)->content + " OR " + temp;
+            string s = ($1)->content + " OR " + $3;
             $$ = makeTermNode(s);
         }
 ;
