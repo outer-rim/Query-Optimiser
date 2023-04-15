@@ -68,6 +68,7 @@ Node *makeTree(Node* left)
 
 Node *makeSelectTree(Node* left, Node *right)
 {
+    if(right->nodeType == JTABLE_) return joinTree(appendAndNode(left, right->attr), right->left, right->right);
     Node *node = new Node();
     node->nodeType = STABLE_;
     node->content = "STABLE";
