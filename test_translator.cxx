@@ -131,6 +131,16 @@ Node *unionTree(Node* attr, Node* table1, Node* table2)
     return node;
 }
 
+Node *intersectTree(Node* table1, Node* table2)
+{
+    Node *node = new Node();
+    node->nodeType = ITABLE_;
+    node->content = "TABLE";
+    node->right = table2;
+    node->left = table1;
+    return node;
+}
+
 void printTable(Node* node)
 {
     if(node == NULL) return;
@@ -209,6 +219,12 @@ void revert(Node* node)
         string s;
         get_str(s, node->attr);
         cout << s << " ] ";
+        revert(node->right);
+    }
+    else if(node->nodeType == ITABLE_)
+    {
+        revert(node->left);
+        cout << " INTERSECT ";
         revert(node->right);
     }
     else cout << node->content;

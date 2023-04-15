@@ -10,7 +10,7 @@
     Node* node;
 }
 
-%token AND OR SELECT PROJECT JOIN UNION INTERSECT DIFF PROD LSQ RSQ LPAR RPAR
+%token AND OR SELECT PROJECT JOIN UNION INTERSECT DIFF PROD LSQ RSQ LPAR RPAR NL
 %token <str> WORD
 
 %start result
@@ -24,10 +24,9 @@
 
 result :
         | result table
-        {
-            // printTable($2);
-            revert($2);
-        }
+        { revert($2); }
+        | result table NL
+        { revert($2); cout << endl; }
 ;
 
 table : term
@@ -46,6 +45,8 @@ table : term
         { $$ = makeProjectTree($3, $6); }
         | PROJECT LSQ expression RSQ LPAR table UNION table RPAR
         { $$ = unionTree($3, $6, $8); }
+        | table INTERSECT table
+        { $$ = intersectTree($1, $3); }
 ;
 
 expression: term

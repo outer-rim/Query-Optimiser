@@ -13,6 +13,7 @@ using namespace std;
 #define DTABLE_ 107
 #define UTABLE_ 108
 #define JTABLE_ 109
+#define ITABLE_ 110
 
 class Node {
     public:
@@ -35,6 +36,7 @@ Node *makeProjectTree(Node*, Node*);
 Node *joinTree(Node*, Node*, Node*);
 Node *diffTree(Node*, Node*, Node*);
 Node *unionTree(Node*, Node*, Node*);
+Node *intersectTree(Node*, Node*);
 void printTable(Node*);
 void revert(Node*);
 Node *parse(Node*);

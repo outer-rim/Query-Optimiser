@@ -19,7 +19,7 @@
 "]"                           { return RSQ;                                }
 "("                           { return LPAR;                               }
 ")"                           { return RPAR;                               }
-[\n]                          { cout << endl;                              }
+[\n]                          { return NL;                                 }
 [ \t]                         {                                            }
 
 %%
