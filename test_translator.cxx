@@ -85,6 +85,7 @@ Node *get_table(Node *tree)
 
 Node *makeProjectTree(Node* left, Node* right)
 {
+    if(right->nodeType == UTABLE_) return unionTree(left, right->left, right->right);
     Node *node = new Node();
     node->nodeType = PTABLE_;
     node->content = "PTABLE";
