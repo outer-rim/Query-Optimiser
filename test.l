@@ -15,6 +15,7 @@
 "AND"                         { return AND;                                }
 "OR"                          { return OR;                                 }
 [a-zA-Z0-9][a-zA-Z0-9\.]*     { yylval.str=strdup(yytext); return WORD;    }
+"*"                           { yylval.str=strdup(yytext); return WORD;    }
 "["                           { return LSQ;                                }
 "]"                           { return RSQ;                                }
 "("                           { return LPAR;                               }

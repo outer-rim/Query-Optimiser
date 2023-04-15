@@ -70,7 +70,7 @@ Node *makeSelectTree(Node* left, Node *right)
 {
     Node *node = new Node();
     node->nodeType = STABLE_;
-    node->content = "TABLE";
+    node->content = "STABLE";
     node->right = right;
     node->left = left;
     return node;
@@ -86,7 +86,7 @@ Node *makeProjectTree(Node* left, Node* right)
 {
     Node *node = new Node();
     node->nodeType = PTABLE_;
-    node->content = "TABLE";
+    node->content = "PTABLE";
     node->left = left;
     node->right = get_table(right);
     return node;
@@ -104,7 +104,7 @@ Node *joinTree(Node* attr, Node* table1, Node* table2)
 {
     Node *node = new Node();
     node->nodeType = JTABLE_;
-    node->content = "TABLE";
+    node->content = "JTABLE";
     node->right = table2;
     node->left = table1;
     node->attr = attr;
@@ -115,9 +115,17 @@ Node *diffTree(Node* attr, Node* table1, Node* table2)
 {
     Node *node = new Node();
     node->nodeType = DTABLE_;
-    node->content = "TABLE";
-    node->right = makeSelectTree(gen_copy(attr), table2);
-    node->left = makeSelectTree(gen_copy(attr), table1);
+    node->content = "DTABLE";
+    if(attr)
+    {
+        node->right = makeSelectTree(gen_copy(attr), table2);
+        node->left = makeSelectTree(gen_copy(attr), table1);
+    }
+    else
+    {
+        node->right = table2;
+        node->left = table1;
+    }
     return node;
 }
 
@@ -125,9 +133,17 @@ Node *unionTree(Node* attr, Node* table1, Node* table2)
 {
     Node *node = new Node();
     node->nodeType = UTABLE_;
-    node->content = "TABLE";
-    node->right = makeProjectTree(gen_copy(attr), table2);
-    node->left = makeProjectTree(gen_copy(attr), table1);
+    node->content = "UTABLE";
+    if(attr)
+    {
+        node->right = makeProjectTree(gen_copy(attr), table2);
+        node->left = makeProjectTree(gen_copy(attr), table1);
+    }
+    else
+    {
+        node->right = table2;
+        node->left = table1;
+    }
     return node;
 }
 
@@ -135,7 +151,7 @@ Node *intersectTree(Node* table1, Node* table2)
 {
     Node *node = new Node();
     node->nodeType = ITABLE_;
-    node->content = "TABLE";
+    node->content = "ITABLE";
     node->right = table2;
     node->left = table1;
     return node;
@@ -173,7 +189,7 @@ Node *get_and(Node* node, Node* res)
     if(node->right != NULL) temp = get_and(node->right, temp);
     if(node->nodeType != WORD_) return temp;
     temp->nodeType = STABLE_;
-    temp->content = "TABLE";
+    temp->content = "STABLE";
     temp->pro = 1;
     temp->left = new Node(node);
     temp->right = new Node();

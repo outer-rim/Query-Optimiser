@@ -47,6 +47,12 @@ table : term
         { $$ = unionTree($3, $6, $8); }
         | table INTERSECT table
         { $$ = intersectTree($1, $3); }
+        | table UNION table
+        { $$ = unionTree(NULL, $1, $3); }
+        | table DIFF table
+        { $$ = diffTree(NULL, $1, $3); }
+        | table JOIN LSQ expression RSQ table
+        { $$ = joinTree($4, $1, $6); }
 ;
 
 expression: term
