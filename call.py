@@ -8,4 +8,3 @@ args = (EXECUTABLE, "<", INPUT, ">", OUTPUT)
 cmd = " ".join(args)
 
 output = os.popen(cmd).read()
-print(output)

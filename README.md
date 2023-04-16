@@ -67,7 +67,11 @@ Team members:
 
 A quick introduction of the minimal setup you need to get the application up
 
+Install the gcc package along with flex and bison (following commands are applicable for Ubuntu based systems)
+
 ```shell
+sudo apt install build-essentials
+sudo apt install flex bison
 make run
 pip install -r requirements.txt
 streamlit run deploy.py
