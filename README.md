@@ -1,4 +1,4 @@
-# <div align="center">Query Optimizer</div>
+# <div align="center">Query Optimiser</div>
 
 > Repository for End term submission for Database Management Systems Lab course (CS39202) offered in Spring semester 2023, Department of CSE, IIT Kharagpur.
 
@@ -16,9 +16,9 @@
     <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white">
     <br />
     <br />
-    <a href="https://github.com/outer-rim/Sciatica/issues">Report Bug</a>
+    <a href="https://github.com/outer-rim/Query-Optimiser/issues">Report Bug</a>
     ·
-    <a href="https://github.com/outer-rim/Sciatica/issues">Request Feature</a>
+    <a href="https://github.com/outer-rim/Query-Optimiser/issues">Request Feature</a>
   </p>
 </div>
 
