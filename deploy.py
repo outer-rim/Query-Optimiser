@@ -57,7 +57,7 @@ if compile:
     with open(INPUT, "w") as f:
         f.write(custom_query)
 
-    subprocess.run(["python3", "call.py"])
+    subprocess.run(["python", "call.py"])
 
     with open(OUTPUT, "r") as f:
         for line in f:
