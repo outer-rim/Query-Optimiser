@@ -27,6 +27,8 @@ result :
         { revert($2); }
         | result table NL
         { revert($2); cout << endl; }
+        | result error NL
+        {  }
 ;
 
 table : term
@@ -74,5 +76,5 @@ term:   WORD
 
 void yyerror(char* s)
 {
-    cerr << "Error Detected : " << s << endl;
+    cout << "Error Detected : " << s << endl;
 }
